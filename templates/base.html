@@ -6,36 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </head>
 
 <body>
     <div style="margin-top: 50px;" class="ui container">
-        <h1 class="ui center aligned header">To Do App</h1>
+        <h1>Today's tasks</h1>
 
         <form class="ui form" action="/add" method="post">
-            <div class="field">
-                <label>Todo Title</label>
-                <input type="text" name="title" placeholder="Enter Todo..."><br>
+            <div class="input">
+                <label class = "prompt">What do you want to do today?</label> <br> 
+
+                    <input class = "textbox" type="text" name="title" placeholder="Enter your task here...">
+                    <button class="material-symbols-outlined">add</button>
+
             </div>
-            <button class="ui blue button" type="submit">Add</button>
+
         </form>
 
         <hr>
 
         {% for todo in todo_list %}
-        <div class="ui segment">
-            <p class="ui big header">{{todo.id }} | {{ todo.title }}</p>
+        <div class="ui_segment">
+            <p class="ui big header">{{todo.id }}. {{ todo.title }}</p> 
 
             {% if todo.complete == False %}
-            <span class="ui gray label">Not Complete</span>
+            <span class="Completion">Not Complete</span>
             {% else %}
-            <span class="ui green label">Completed</span>
+            <span class="Completion">Completed</span>
             {% endif %}
 
-            <a class="ui blue button" href="/update/{{ todo.id }}">Update</a>
-            <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+            <a href="/update/{{ todo.id }}"> <button class="material-symbols-outlined">
+                done</button></a>
+            <a href="/delete/{{ todo.id }}"><button class="material-symbols-outlined">delete</button></a>
         </div>
         {% endfor %}
     </div>
